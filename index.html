@@ -21,27 +21,40 @@
       crossorigin="anonymous"
     />
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+
     <title>Biblioteca</title>
   </head>
   <body>
     <header>
       <h1>Biblioteca</h1>
+      <section class="botoes">
+        <div class="filtro">
+          <button class="todos selecionado">Todos</button>
+          <button class="nao-lidos">Não lidos</button>
+          <button class="lidos">Lidos</button>
+        </div>
+        <button><i class="fas fa-plus"></i></button>
+      </section>
     </header>
-    <section class="botoes">
-      <div class="filtro">
-        <button class="todos">Todos</button>
-        <button class="nao-lidos">Não lidos</button>
-        <button class="lidos">Lidos</button>
-      </div>
-      <button><i class="fas fa-plus"></i> Novo livro</button>
-    </section>
+
     <main>
       <section class="livros" id="livros">
-        <div class="livro">
-          <h3 class="nome">Nome do livro</h3>
-          <p class="autor">Autor</p>
-          <p class="ano">ano</p>
-          <p class="num-paginas">259 Páginas</p>
+        <div class="livro lido">
+          <h3>O Ceifador</h3>
+          <p>
+            <i class="fas fa-user"></i>
+            <span class="autor">Neil Shusterman</span>
+          </p>
+          <p>
+            <i class="far fa-calendar-alt"></i>
+            <span class="ano">2016</span>
+          </p>
+          <p>
+            <i class="fas fa-book-open"></i>
+            <span class="paginas">443 páginas</span>
+          </p>
           <button class="lido">Lido</button>
         </div>
       </section>
