@@ -58,6 +58,7 @@ function adicionarNaBiblioteca() {
       inputLido.checked
     );
     minhaBiblioteca.push(novoLivro);
+    addLivroNaSection(novoLivro);
   }
 }
 
@@ -114,5 +115,16 @@ function livroParaHtml(livro) {
 
   html.appendChild(paginasP);
 
+  //////////////////////////////////////////////
+  // gerar parte dos botoes de baixo ///////////
+  //////////////////////////////////////////////
   return html;
+}
+
+// lida com a div que agrupa os cards dos livros
+const livrosSection = document.getElementById("livros");
+
+function addLivroNaSection(livro) {
+  const htmlGerado = livroParaHtml(livro);
+  livrosSection.appendChild(htmlGerado);
 }
