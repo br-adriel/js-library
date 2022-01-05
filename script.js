@@ -1,8 +1,9 @@
 let minhaBiblioteca = [];
 
-function Livro(titulo, autor, paginas, foiLido = false) {
+function Livro(titulo, autor, publicacao, paginas, foiLido = false) {
   this.titulo = titulo;
   this.autor = autor;
+  this.publicacao = publicacao;
   this.paginas = paginas;
   this.foiLido = foiLido;
 }
@@ -25,6 +26,7 @@ const ocultarModal = () => (fundoModal.style.display = "none");
 // Inputs do formulario
 const inputTitulo = document.getElementById("form-titulo");
 const inputAutor = document.getElementById("form-autor");
+const inputPublicacao = document.getElementById("form-publicacao");
 const inputPaginas = document.getElementById("form-paginas");
 const inputLido = document.getElementById("form-lido");
 
@@ -45,11 +47,13 @@ function adicionarNaBiblioteca() {
     // verifica se os campos estao preenchidos
     inputTitulo.value !== "" &&
     inputAutor.value !== "" &&
+    inputPublicacao.value !== "" &&
     inputPaginas.value !== ""
   ) {
     const novoLivro = new Livro(
       inputTitulo.value,
       inputAutor.value,
+      inputPublicacao.value,
       inputPaginas.value,
       inputLido.checked
     );
