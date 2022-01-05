@@ -1,11 +1,19 @@
 let minhaBiblioteca = [];
 
-function Livro(titulo, autor, publicacao, paginas, foiLido = false) {
+function Livro(
+  titulo,
+  autor,
+  publicacao,
+  paginas,
+  foiLido = false,
+  favorito = false
+) {
   this.titulo = titulo;
   this.autor = autor;
   this.publicacao = publicacao;
   this.paginas = paginas;
   this.foiLido = foiLido;
+  this.favorito = favorito;
 }
 
 // Implementacao do modal
@@ -29,6 +37,7 @@ const inputAutor = document.getElementById("form-autor");
 const inputPublicacao = document.getElementById("form-publicacao");
 const inputPaginas = document.getElementById("form-paginas");
 const inputLido = document.getElementById("form-lido");
+const inputFavorito = document.getElementById("form-favorito");
 
 const form = document.querySelector("form");
 form.addEventListener("submit", (e) => {
@@ -55,7 +64,8 @@ function adicionarNaBiblioteca() {
       inputAutor.value,
       inputPublicacao.value,
       inputPaginas.value,
-      inputLido.checked
+      inputLido.checked,
+      inputFavorito.checked
     );
     minhaBiblioteca.push(novoLivro);
     addLivroNaSection(novoLivro);
