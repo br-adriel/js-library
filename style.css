@@ -118,14 +118,36 @@ main {
   gap: 0.5rem;
 }
 
-.livro button {
-  border-radius: 0.25rem;
-  color: #fff;
-  background-color: rgba(88, 94, 88, 0.5);
+.livro .acoes {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
-.livro.lido button {
-  background-color: rgba(36, 161, 53, 0.5);
+.livro button {
+  border-radius: 0.25rem;
+  color: #aaa;
+  transition: 0.2s background, 0.2s color;
+}
+
+.livro .btn-favorito:hover,
+.livro .btn-apagar:hover {
+  color: #ef476f;
+}
+
+.livro.favorito .btn-favorito {
+  color: #fff;
+  background-color: #ef476f;
+}
+
+.livro .btn-lido:hover {
+  color: #06d6a0;
+}
+
+.livro.lido .btn-lido {
+  color: #fff;
+  background: #06d6a0;
 }
 
 footer {
