@@ -67,8 +67,12 @@ function livroParaHtml(livro) {
   // card de livro
   const html = document.createElement("div");
   html.classList.add("livro");
-  if (livro.lido) {
+  if (livro.foiLido) {
     html.classList.add("lido");
+  }
+
+  if (livro.favorito) {
+    html.classList.add("favorito");
   }
 
   // titulo do card
@@ -115,9 +119,36 @@ function livroParaHtml(livro) {
 
   html.appendChild(paginasP);
 
-  //////////////////////////////////////////////
-  // gerar parte dos botoes de baixo ///////////
-  //////////////////////////////////////////////
+  // div de botoes de acao
+  const acoes = document.createElement("div");
+  acoes.classList.add("acoes");
+
+  const btnApagar = document.createElement("button");
+  const btnApagarIcone = document.createElement("i");
+
+  btnApagarIcone.classList.add("fas", "fa-trash");
+  btnApagar.classList.add("btn-apagar");
+  btnApagar.appendChild(btnApagarIcone);
+  acoes.appendChild(btnApagar);
+
+  const btnFavorito = document.createElement("button");
+  const btnFavoritoIcone = document.createElement("i");
+
+  btnFavoritoIcone.classList.add("fas", "fa-heart");
+  btnFavorito.classList.add("btn-favorito");
+  btnFavorito.appendChild(btnFavoritoIcone);
+  acoes.appendChild(btnFavorito);
+
+  const btnLido = document.createElement("button");
+  const btnLidoIcone = document.createElement("i");
+
+  btnLidoIcone.classList.add("fas", "fa-check");
+  btnLido.classList.add("btn-lido");
+  btnLido.appendChild(btnLidoIcone);
+  acoes.appendChild(btnLido);
+
+  html.appendChild(acoes);
+
   return html;
 }
 
