@@ -75,6 +75,7 @@ function adicionarNaBiblioteca() {
   }
 }
 
+// logica geral dos botoes de favorito, apagar, e marcar lido
 function desempenharAcao(e, tipo) {
   const idLivro = e.currentTarget.dataset.id;
   const livro = document.getElementById(`livro-${idLivro}`);
@@ -83,6 +84,7 @@ function desempenharAcao(e, tipo) {
       marcarFavorito(livro, idLivro);
       break;
     case "lido":
+      marcarLido(livro, idLivro);
       break;
     case "apagar":
       break;
@@ -95,6 +97,16 @@ function marcarFavorito(livroHtml, idLivro) {
   minhaBiblioteca.forEach((livro) => {
     if (livro.id == idLivro) {
       livro.favorito = !livro.favorito;
+    }
+  });
+}
+
+// funcao para evento de clique em botao marcar lido
+function marcarLido(livroHtml, idLivro) {
+  livroHtml.classList.toggle("lido");
+  minhaBiblioteca.forEach((livro) => {
+    if (livro.id == idLivro) {
+      livro.foiLido = !livro.foiLido;
     }
   });
 }
@@ -118,6 +130,7 @@ function btnLidoHtml(livro) {
   const btnLidoIcone = document.createElement("i");
 
   btnLido.setAttribute("data-id", livro.id);
+  btnLido.addEventListener("click", (e) => desempenharAcao(e, "lido"));
   btnLidoIcone.classList.add("fas", "fa-check");
   btnLido.classList.add("btn-lido");
   btnLido.appendChild(btnLidoIcone);
