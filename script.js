@@ -99,6 +99,18 @@ function btnFavoritoHtml(livro) {
   return btnFavorito;
 }
 
+// gera elemento html do botao marcar lido
+function btnLidoHtml(livro) {
+  const btnLido = document.createElement("button");
+  const btnLidoIcone = document.createElement("i");
+
+  btnLido.setAttribute("data-id", livro.id);
+  btnLidoIcone.classList.add("fas", "fa-check");
+  btnLido.classList.add("btn-lido");
+  btnLido.appendChild(btnLidoIcone);
+  return btnLido;
+}
+
 // gera elemento html para livro
 function livroParaHtml(livro) {
   // card de livro
@@ -173,13 +185,7 @@ function livroParaHtml(livro) {
   const btnFavorito = btnFavoritoHtml(livro);
   acoes.appendChild(btnFavorito);
 
-  const btnLido = document.createElement("button");
-  const btnLidoIcone = document.createElement("i");
-
-  btnLido.setAttribute("data-id", livro.id);
-  btnLidoIcone.classList.add("fas", "fa-check");
-  btnLido.classList.add("btn-lido");
-  btnLido.appendChild(btnLidoIcone);
+  const btnLido = btnLidoHtml(livro);
   acoes.appendChild(btnLido);
 
   html.appendChild(acoes);
