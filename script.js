@@ -169,3 +169,69 @@ function addLivroNaSection(livro) {
   const htmlGerado = livroParaHtml(livro);
   livrosSection.appendChild(htmlGerado);
 }
+
+// botoes de filtro
+const btnsFiltro = document.querySelectorAll(".filtro button");
+btnsFiltro.forEach((btn) => {
+  btn.addEventListener("click", (e) => clicarFiltro(e));
+});
+
+// lida com a mudanca visual do botao
+function clicarFiltro(e) {
+  btnsFiltro.forEach((btn) => {
+    if (btn.id === e.currentTarget.id) {
+      btn.classList.add("selecionado");
+    } else {
+      btn.classList.remove("selecionado");
+    }
+  });
+}
+
+function filtrarTodos() {
+  const tam = livrosSection.children.length;
+
+  for (let i = 0; i < tam; i++) {
+    livrosSection.children[i].style.display = "flex";
+  }
+}
+
+function filtrarLidos() {
+  const tam = livrosSection.children.length;
+
+  for (let i = 0; i < tam; i++) {
+    if (livrosSection.children[i].classList.contains("lido")) {
+      livrosSection.children[i].style.display = "flex";
+    } else {
+      livrosSection.children[i].style.display = "none";
+    }
+  }
+}
+
+function filtrarNaoLidos() {
+  const tam = livrosSection.children.length;
+
+  for (let i = 0; i < tam; i++) {
+    if (livrosSection.children[i].classList.contains("lido")) {
+      livrosSection.children[i].style.display = "none";
+    } else {
+      livrosSection.children[i].style.display = "flex";
+    }
+  }
+}
+
+function filtrarFavoritos() {
+  const tam = livrosSection.children.length;
+
+  for (let i = 0; i < tam; i++) {
+    if (livrosSection.children[i].classList.contains("favorito")) {
+      livrosSection.children[i].style.display = "flex";
+    } else {
+      livrosSection.children[i].style.display = "none";
+    }
+  }
+}
+
+btnsFiltro[0].addEventListener("click", filtrarTodos);
+btnsFiltro[1].addEventListener("click", filtrarNaoLidos);
+btnsFiltro[2].addEventListener("click", filtrarLidos);
+btnsFiltro[3].addEventListener("click", filtrarFavoritos);
