@@ -86,6 +86,19 @@ function marcarFavorito(e) {
   });
 }
 
+// gera elemento html do botao favorito
+function btnFavoritoHtml(livro) {
+  const btnFavorito = document.createElement("button");
+  const btnFavoritoIcone = document.createElement("i");
+
+  btnFavorito.setAttribute("data-id", livro.id);
+  btnFavorito.addEventListener("click", (e) => marcarFavorito(e));
+  btnFavoritoIcone.classList.add("fas", "fa-heart");
+  btnFavorito.classList.add("btn-favorito");
+  btnFavorito.appendChild(btnFavoritoIcone);
+  return btnFavorito;
+}
+
 // gera elemento html para livro
 function livroParaHtml(livro) {
   // card de livro
@@ -157,14 +170,7 @@ function livroParaHtml(livro) {
   btnApagar.appendChild(btnApagarIcone);
   acoes.appendChild(btnApagar);
 
-  const btnFavorito = document.createElement("button");
-  const btnFavoritoIcone = document.createElement("i");
-
-  btnFavorito.setAttribute("data-id", livro.id);
-  btnFavorito.addEventListener("click", (e) => marcarFavorito(e));
-  btnFavoritoIcone.classList.add("fas", "fa-heart");
-  btnFavorito.classList.add("btn-favorito");
-  btnFavorito.appendChild(btnFavoritoIcone);
+  const btnFavorito = btnFavoritoHtml(livro);
   acoes.appendChild(btnFavorito);
 
   const btnLido = document.createElement("button");
