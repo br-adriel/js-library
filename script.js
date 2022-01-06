@@ -111,6 +111,18 @@ function btnLidoHtml(livro) {
   return btnLido;
 }
 
+// gera elemento html do botao apagar
+function btnApagarHtml(livro) {
+  const btnApagar = document.createElement("button");
+  const btnApagarIcone = document.createElement("i");
+
+  btnApagar.setAttribute("data-id", livro.id);
+  btnApagarIcone.classList.add("fas", "fa-trash");
+  btnApagar.classList.add("btn-apagar");
+  btnApagar.appendChild(btnApagarIcone);
+  return btnApagar;
+}
+
 // gera elemento html para livro
 function livroParaHtml(livro) {
   // card de livro
@@ -173,13 +185,7 @@ function livroParaHtml(livro) {
   const acoes = document.createElement("div");
   acoes.classList.add("acoes");
 
-  const btnApagar = document.createElement("button");
-  const btnApagarIcone = document.createElement("i");
-
-  btnApagar.setAttribute("data-id", livro.id);
-  btnApagarIcone.classList.add("fas", "fa-trash");
-  btnApagar.classList.add("btn-apagar");
-  btnApagar.appendChild(btnApagarIcone);
+  const btnApagar = btnApagarHtml();
   acoes.appendChild(btnApagar);
 
   const btnFavorito = btnFavoritoHtml(livro);
