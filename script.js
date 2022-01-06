@@ -1,4 +1,5 @@
 let minhaBiblioteca = [];
+let id = 1;
 
 function Livro(
   titulo,
@@ -8,6 +9,7 @@ function Livro(
   foiLido = false,
   favorito = false
 ) {
+  this.id = id;
   this.titulo = titulo;
   this.autor = autor;
   this.publicacao = publicacao;
@@ -69,7 +71,19 @@ function adicionarNaBiblioteca() {
     );
     minhaBiblioteca.push(novoLivro);
     addLivroNaSection(novoLivro);
+    id++;
   }
+}
+
+// funcao para evento de clique em botao favorito
+function marcarFavorito(e) {
+  const livro = document.getElementById(`livro-${e.currentTarget.dataset.id}`);
+  livro.classList.toggle("favorito");
+  minhaBiblioteca.forEach((livro) => {
+    if (livro.id == e.currentTarget.dataset.id) {
+      livro.favorito = !livro.favorito;
+    }
+  });
 }
 
 // gera elemento html para livro
@@ -77,6 +91,7 @@ function livroParaHtml(livro) {
   // card de livro
   const html = document.createElement("div");
   html.classList.add("livro");
+  html.setAttribute("id", `livro-${livro.id}`);
   if (livro.foiLido) {
     html.classList.add("lido");
   }
@@ -108,7 +123,7 @@ function livroParaHtml(livro) {
   const pubIcone = document.createElement("i");
   const pubSpan = document.createElement("span");
 
-  pubIcone.classList.add("fas", "fa-calendar-alt");
+  pubIcone.classList.add("far", "fa-calendar-alt");
   pubP.appendChild(pubIcone);
 
   pubSpan.innerText = livro.publicacao;
@@ -136,6 +151,7 @@ function livroParaHtml(livro) {
   const btnApagar = document.createElement("button");
   const btnApagarIcone = document.createElement("i");
 
+  btnApagar.setAttribute("data-id", livro.id);
   btnApagarIcone.classList.add("fas", "fa-trash");
   btnApagar.classList.add("btn-apagar");
   btnApagar.appendChild(btnApagarIcone);
@@ -144,6 +160,8 @@ function livroParaHtml(livro) {
   const btnFavorito = document.createElement("button");
   const btnFavoritoIcone = document.createElement("i");
 
+  btnFavorito.setAttribute("data-id", livro.id);
+  btnFavorito.addEventListener("click", (e) => marcarFavorito(e));
   btnFavoritoIcone.classList.add("fas", "fa-heart");
   btnFavorito.classList.add("btn-favorito");
   btnFavorito.appendChild(btnFavoritoIcone);
@@ -152,6 +170,7 @@ function livroParaHtml(livro) {
   const btnLido = document.createElement("button");
   const btnLidoIcone = document.createElement("i");
 
+  btnLido.setAttribute("data-id", livro.id);
   btnLidoIcone.classList.add("fas", "fa-check");
   btnLido.classList.add("btn-lido");
   btnLido.appendChild(btnLidoIcone);
