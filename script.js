@@ -75,12 +75,25 @@ function adicionarNaBiblioteca() {
   }
 }
 
+function desempenharAcao(e, tipo) {
+  const idLivro = e.currentTarget.dataset.id;
+  const livro = document.getElementById(`livro-${idLivro}`);
+  switch (tipo) {
+    case "favorito":
+      marcarFavorito(livro, idLivro);
+      break;
+    case "lido":
+      break;
+    case "apagar":
+      break;
+  }
+}
+
 // funcao para evento de clique em botao favorito
-function marcarFavorito(e) {
-  const livro = document.getElementById(`livro-${e.currentTarget.dataset.id}`);
-  livro.classList.toggle("favorito");
+function marcarFavorito(livroHtml, idLivro) {
+  livroHtml.classList.toggle("favorito");
   minhaBiblioteca.forEach((livro) => {
-    if (livro.id == e.currentTarget.dataset.id) {
+    if (livro.id == idLivro) {
       livro.favorito = !livro.favorito;
     }
   });
@@ -92,7 +105,7 @@ function btnFavoritoHtml(livro) {
   const btnFavoritoIcone = document.createElement("i");
 
   btnFavorito.setAttribute("data-id", livro.id);
-  btnFavorito.addEventListener("click", (e) => marcarFavorito(e));
+  btnFavorito.addEventListener("click", (e) => desempenharAcao(e, "favorito"));
   btnFavoritoIcone.classList.add("fas", "fa-heart");
   btnFavorito.classList.add("btn-favorito");
   btnFavorito.appendChild(btnFavoritoIcone);
@@ -185,7 +198,7 @@ function livroParaHtml(livro) {
   const acoes = document.createElement("div");
   acoes.classList.add("acoes");
 
-  const btnApagar = btnApagarHtml();
+  const btnApagar = btnApagarHtml(livro);
   acoes.appendChild(btnApagar);
 
   const btnFavorito = btnFavoritoHtml(livro);
