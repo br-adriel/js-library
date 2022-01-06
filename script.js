@@ -87,6 +87,7 @@ function desempenharAcao(e, tipo) {
       marcarLido(livro, idLivro);
       break;
     case "apagar":
+      apagarLivro(livro, idLivro);
       break;
   }
 }
@@ -109,6 +110,12 @@ function marcarLido(livroHtml, idLivro) {
       livro.foiLido = !livro.foiLido;
     }
   });
+}
+
+// funcao para evento de clicle no botao apagar
+function apagarLivro(livroHtml, idLivro) {
+  livroHtml.remove();
+  minhaBiblioteca = minhaBiblioteca.filter((livro) => livro.id != idLivro);
 }
 
 // gera elemento html do botao favorito
@@ -143,6 +150,7 @@ function btnApagarHtml(livro) {
   const btnApagarIcone = document.createElement("i");
 
   btnApagar.setAttribute("data-id", livro.id);
+  btnApagar.addEventListener("click", (e) => desempenharAcao(e, "apagar"));
   btnApagarIcone.classList.add("fas", "fa-trash");
   btnApagar.classList.add("btn-apagar");
   btnApagar.appendChild(btnApagarIcone);
