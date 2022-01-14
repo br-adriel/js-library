@@ -1,21 +1,23 @@
 let minhaBiblioteca = [];
 let id = 1;
 
-function Livro(
-  titulo,
-  autor,
-  publicacao,
-  paginas,
-  foiLido = false,
-  favorito = false
-) {
-  this.id = id;
-  this.titulo = titulo;
-  this.autor = autor;
-  this.publicacao = publicacao;
-  this.paginas = paginas;
-  this.foiLido = foiLido;
-  this.favorito = favorito;
+class Livro {
+  constructor(
+    titulo,
+    autor,
+    publicacao,
+    paginas,
+    foiLido = false,
+    favorito = false
+  ) {
+    this.id = id;
+    this.titulo = titulo;
+    this.autor = autor;
+    this.publicacao = publicacao;
+    this.paginas = paginas;
+    this.foiLido = foiLido;
+    this.favorito = favorito;
+  }
 }
 
 // Implementacao do modal
