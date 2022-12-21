@@ -39,6 +39,14 @@ const GlobalStyles = createGlobalStyle`
     align-items: flex-start;
   }
 
+  input {
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    box-shadow: none;
+    transition: 0.3s box-shadow;
+  }
+
   input:focus {
     outline: none;
     box-shadow: 0 0 0.2rem rgb(0, 150, 199, 0.5);
