@@ -2,21 +2,32 @@ import styled from 'styled-components';
 import ButtonWrapper from './ButtonWrapper';
 import { FaPlus } from 'react-icons/fa';
 import Filtro from './Filtro';
+import { useContext } from 'react';
+import ModalContext from '../contexts/ModalContext';
 
 const Header = () => {
+  const { setModalState } = useContext(ModalContext);
   return (
     <HeaderTag>
       <h1>Biblioteca</h1>
       <ButtonWrapper>
         <Filtro>
-          <button id='filtro-todos' className='selecionado'>
-            Todos
+          <button type='button'>Todos</button>
+          <button type='button' id='filtro-nao-lidos'>
+            Não lidos
           </button>
-          <button id='filtro-nao-lidos'>Não lidos</button>
-          <button id='filtro-lidos'>Lidos</button>
-          <button id='filtro-favoritos'>Favoritos</button>
+          <button type='button' id='filtro-lidos'>
+            Lidos
+          </button>
+          <button type='button' id='filtro-favoritos'>
+            Favoritos
+          </button>
         </Filtro>
-        <button id='btn-novo-livro'>
+        <button
+          type='button'
+          onClick={() => setModalState({ show: true })}
+          title='Adicionar livro'
+        >
           <FaPlus />
         </button>
       </ButtonWrapper>
