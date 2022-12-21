@@ -8,12 +8,8 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
   }
 
-  #root {
+  #root, body {
     width: 100%;
-    min-height: 100vh;
-  }
-
-  body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
