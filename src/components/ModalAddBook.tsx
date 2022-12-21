@@ -1,19 +1,17 @@
-import styled from 'styled-components';
+import { useContext } from 'react';
 import { FaTimes } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import ModalContext from '../contexts/ModalContext';
 
-const ModalAddBook: React.FC<{ show: boolean }> = ({ show }) => {
-  const [showModal, setShowModal] = useState(false);
+const ModalAddBook = () => {
+  const { modalState, setModalState } = useContext(ModalContext);
 
-  useEffect(() => {
-    setShowModal(show);
-  }, [show]);
   return (
-    <ModalBackground id='fundo-modal' show={showModal}>
+    <ModalBackground id='fundo-modal' show={modalState.show}>
       <Modal>
         <ModalTop>
           <h3>Novo livro</h3>
-          <button onClick={() => setShowModal(false)}>
+          <button onClick={() => setModalState({ show: false })} title='Fechar'>
             <FaTimes />
           </button>
         </ModalTop>
