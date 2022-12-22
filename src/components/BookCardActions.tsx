@@ -14,29 +14,45 @@ const BookCardActions: React.FC<IProps> = ({ book }) => {
   const apagar = () => {
     setBooksState((prev) => {
       return {
+        ...prev,
         books: prev.books.filter((b) => b.id !== book.id),
+        shownBooks: prev.shownBooks.filter((b) => b.id !== book.id),
       };
     });
   };
 
   const favoritar = () => {
+    const toggleFavorito = (b: Livro) => {
+      if (b.id === book.id)
+        return {
+          ...b,
+          favorito: !b.favorito,
+        };
+      return b;
+    };
     setBooksState((prev) => {
       return {
-        books: prev.books.map((b) => {
-          if (b.id === book.id) b.favorito = !b.favorito;
-          return b;
-        }),
+        ...prev,
+        books: prev.books.map(toggleFavorito),
+        shownBooks: prev.shownBooks.map(toggleFavorito),
       };
     });
   };
 
   const marcarLido = () => {
+    const toggleLido = (b: Livro) => {
+      if (b.id === book.id)
+        return {
+          ...b,
+          foiLido: !b.foiLido,
+        };
+      return b;
+    };
     setBooksState((prev) => {
       return {
-        books: prev.books.map((b) => {
-          if (b.id === book.id) b.foiLido = !b.foiLido;
-          return b;
-        }),
+        ...prev,
+        books: prev.books.map(toggleLido),
+        shownBooks: prev.shownBooks.map(toggleLido),
       };
     });
   };
