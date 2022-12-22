@@ -18,7 +18,11 @@ const BookCard: React.FC<{ livro: Livro }> = ({ livro }) => {
         <i className='fas fa-book-open'></i>
         <span>{livro.paginas} páginas</span>
       </p>
-      <BookCardActions lido={livro.foiLido} favorito={livro.favorito} />
+      <BookCardActions
+        lido={livro.foiLido}
+        favorito={livro.favorito}
+        id={livro.id}
+      />
     </Card>
   );
 };

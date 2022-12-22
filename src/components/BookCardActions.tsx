@@ -1,15 +1,26 @@
 import styled from 'styled-components';
 import { FaTrash, FaHeart, FaCheck } from 'react-icons/fa';
+import { useContext } from 'react';
+import BooksContext from '../contexts/BooksContext';
 
 interface IProps {
   favorito: boolean;
   lido: boolean;
+  id: string;
 }
 
-const BookCardActions: React.FC<IProps> = ({ favorito, lido }) => {
+const BookCardActions: React.FC<IProps> = ({ favorito, lido, id }) => {
+  const { setBooksState } = useContext(BooksContext);
+  const apagar = () => {
+    setBooksState((prev) => {
+      return {
+        books: prev.books.filter((b) => b.id !== id),
+      };
+    });
+  };
   return (
     <CardActions>
-      <BtnApagar>
+      <BtnApagar onClick={apagar}>
         <FaTrash />
       </BtnApagar>
       <BtnFavorito favorito={favorito}>
