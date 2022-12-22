@@ -1,10 +1,33 @@
 import { useContext } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import styled from 'styled-components';
+import BooksContext from '../contexts/BooksContext';
 import ModalContext from '../contexts/ModalContext';
+import { Livro } from '../global/types';
 
 const ModalAddBook = () => {
   const { modalState, setModalState } = useContext(ModalContext);
+  const { setBooksState } = useContext(BooksContext);
+
+  const formSubmit = (e: any) => {
+    e.preventDefault();
+    const livro: Livro = {
+      id: new Date().toISOString(),
+      autor: e.target.autor.value,
+      favorito: e.target.favorito.checked,
+      foiLido: e.target.foiLido.checked,
+      paginas: Number(e.target.paginas.value),
+      publicacao: Number(e.target.anoPublicacao.value),
+      titulo: e.target.titulo.value,
+    };
+    setBooksState((prev) => {
+      return {
+        books: [...prev.books, livro],
+      };
+    });
+    e.target.reset();
+    setModalState({ show: false });
+  };
 
   return (
     <ModalBackground id='fundo-modal' show={modalState.show}>
@@ -15,27 +38,39 @@ const ModalAddBook = () => {
             <FaTimes />
           </button>
         </ModalTop>
-        <form>
+        <form onSubmit={formSubmit}>
           <ModalFormItem>
             <label htmlFor='form-titulo'>Título:</label>
-            <input type='text' name='titulo' id='form-titulo' required />
+            <input type='text' name='titulo' required id='form-titulo' />
           </ModalFormItem>
           <ModalFormItem>
             <label htmlFor='form-autor'>Autor:</label>
-            <input type='text' name='autor' id='form-autor' required />
+            <input
+              type='text'
+              name='autor'
+              required
+              id='form-autor'
+              minLength={3}
+            />
           </ModalFormItem>
           <ModalFormItem>
             <label htmlFor='form-publicacao'>Ano de publicacao:</label>
-            <input type='number' name='autor' id='form-publicacao' required />
+            <input
+              type='number'
+              name='anoPublicacao'
+              required
+              min='100'
+              id='form-publicacao'
+            />
           </ModalFormItem>
           <ModalFormItem>
             <label htmlFor='form-paginas'>Número de páginas:</label>
             <input
               type='number'
               name='paginas'
-              id='form-paginas'
               min='1'
               required
+              id='form-paginas'
             />
           </ModalFormItem>
           <ModalFormItem>
