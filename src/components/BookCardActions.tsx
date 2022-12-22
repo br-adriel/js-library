@@ -1,32 +1,44 @@
-import styled from 'styled-components';
-import { FaTrash, FaHeart, FaCheck } from 'react-icons/fa';
 import { useContext } from 'react';
+import { FaCheck, FaHeart, FaTrash } from 'react-icons/fa';
+import styled from 'styled-components';
 import BooksContext from '../contexts/BooksContext';
+import { Livro } from '../global/types';
 
 interface IProps {
-  favorito: boolean;
-  lido: boolean;
-  id: string;
+  book: Livro;
 }
 
-const BookCardActions: React.FC<IProps> = ({ favorito, lido, id }) => {
+const BookCardActions: React.FC<IProps> = ({ book }) => {
   const { setBooksState } = useContext(BooksContext);
+
   const apagar = () => {
     setBooksState((prev) => {
       return {
-        books: prev.books.filter((b) => b.id !== id),
+        books: prev.books.filter((b) => b.id !== book.id),
       };
     });
   };
+
+  const favoritar = () => {
+    setBooksState((prev) => {
+      return {
+        books: prev.books.map((b) => {
+          if (b.id === book.id) b.favorito = !b.favorito;
+          return b;
+        }),
+      };
+    });
+  };
+
   return (
     <CardActions>
-      <BtnApagar onClick={apagar}>
+      <BtnApagar onClick={apagar} type='button'>
         <FaTrash />
       </BtnApagar>
-      <BtnFavorito favorito={favorito}>
+      <BtnFavorito favorito={book.favorito} onClick={favoritar} type='button'>
         <FaHeart />
       </BtnFavorito>
-      <BtnLido lido={lido}>
+      <BtnLido lido={book.foiLido} type='button'>
         <FaCheck />
       </BtnLido>
     </CardActions>
