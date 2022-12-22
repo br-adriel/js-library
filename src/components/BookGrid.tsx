@@ -1,14 +1,19 @@
-import React from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
-import { Livro } from '../global/types';
+import BooksContext from '../contexts/BooksContext';
 import BookCard from './BookCard';
 
-const BookGrid: React.FC<{ books: Livro[] }> = ({ books }) => {
+const BookGrid = () => {
+  const { booksState } = useContext(BooksContext);
   return (
     <Grid>
-      {books.map((book) => {
-        return <BookCard key={book.id} livro={book} />;
-      })}
+      {booksState.books.length ? (
+        booksState.books.map((book) => {
+          return <BookCard key={book.id} livro={book} />;
+        })
+      ) : (
+        <h2>Nenhum livro cadastrado</h2>
+      )}
     </Grid>
   );
 };
