@@ -30,7 +30,7 @@ const CardActions = styled.div`
 `;
 
 const BtnFavorito = styled.button<{ favorito: boolean }>`
-  ${(props) => (props.favorito ? 'color: #fff;' : null)}
+  ${(props) => (props.favorito ? 'color: #fff !important;' : null)}
   ${(props) => (props.favorito ? 'background-color: #ef476f;' : null)};
 
   :hover {
@@ -39,7 +39,7 @@ const BtnFavorito = styled.button<{ favorito: boolean }>`
 `;
 
 const BtnLido = styled.button<{ lido: boolean }>`
-  ${(props) => (props.lido ? 'color: #fff;' : null)}
+  ${(props) => (props.lido ? 'color: #fff !important;' : null)}
   ${(props) => (props.lido ? 'background: #06d6a0;' : null)};
 
   :hover {
