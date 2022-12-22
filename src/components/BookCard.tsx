@@ -1,3 +1,4 @@
+import { FaBookOpen, FaCalendarAlt, FaUser } from 'react-icons/fa';
 import styled from 'styled-components';
 import { Livro } from '../global/types';
 import BookCardActions from './BookCardActions';
@@ -7,22 +8,18 @@ const BookCard: React.FC<{ livro: Livro }> = ({ livro }) => {
     <Card>
       <h3>{livro.titulo}</h3>
       <p>
-        <i className='fas fa-user'></i>
+        <FaUser />
         <span>{livro.autor}</span>
       </p>
       <p>
-        <i className='far fa-calendar-alt'></i>
-        <span>{livro.autor}</span>
+        <FaCalendarAlt />
+        <span>{livro.publicacao}</span>
       </p>
       <p>
-        <i className='fas fa-book-open'></i>
+        <FaBookOpen />
         <span>{livro.paginas} páginas</span>
       </p>
-      <BookCardActions
-        lido={livro.foiLido}
-        favorito={livro.favorito}
-        id={livro.id}
-      />
+      <BookCardActions book={livro} />
     </Card>
   );
 };
