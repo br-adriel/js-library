@@ -6,15 +6,19 @@ import BookCard from './BookCard';
 const BookGrid = () => {
   const { booksState } = useContext(BooksContext);
   return (
-    <Grid>
+    <>
       {booksState.shownBooks.length ? (
-        booksState.shownBooks.map((book) => {
-          return <BookCard key={book.id} livro={book} />;
-        })
+        <Grid>
+          {booksState.shownBooks.map((book) => {
+            return <BookCard key={book.id} livro={book} />;
+          })}
+        </Grid>
       ) : (
-        <h2>Nenhum livro cadastrado</h2>
+        <NoBookFound>
+          <h2>Nenhum livro encontrado</h2>
+        </NoBookFound>
       )}
-    </Grid>
+    </>
   );
 };
 
@@ -36,6 +40,12 @@ const Grid = styled.div`
   @media (min-width: 1280px) {
     grid-template-columns: repeat(4, 1fr);
   }
+`;
+
+const NoBookFound = styled.div`
+  padding: 20px;
+  width: 100%;
+  text-align: center;
 `;
 
 export default BookGrid;
