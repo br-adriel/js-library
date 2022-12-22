@@ -23,6 +23,8 @@ const ModalAddBook = () => {
     setBooksState((prev) => {
       return {
         books: [...prev.books, livro],
+        shownBooks: [...prev.books, livro],
+        guia: 'todos',
       };
     });
     e.target.reset();

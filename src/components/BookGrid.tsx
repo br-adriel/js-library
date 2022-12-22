@@ -7,8 +7,8 @@ const BookGrid = () => {
   const { booksState } = useContext(BooksContext);
   return (
     <Grid>
-      {booksState.books.length ? (
-        booksState.books.map((book) => {
+      {booksState.shownBooks.length ? (
+        booksState.shownBooks.map((book) => {
           return <BookCard key={book.id} livro={book} />;
         })
       ) : (

@@ -1,8 +1,10 @@
 import React, { createContext } from 'react';
 import { Livro } from '../global/types';
 
-type BooksStateType = {
+export type BooksStateType = {
   books: Livro[];
+  shownBooks: Livro[];
+  guia: string;
 };
 
 type BooksContextType = {
@@ -11,7 +13,7 @@ type BooksContextType = {
 };
 
 const defaultContext: BooksContextType = {
-  booksState: { books: [] },
+  booksState: { books: [], shownBooks: [], guia: 'todos' },
   setBooksState: () => {},
 };
 

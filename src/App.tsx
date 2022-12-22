@@ -5,7 +5,7 @@ import Header from './components/Header';
 import ModalAddBook from './components/ModalAddBook';
 import ModalContext from './contexts/ModalContext';
 import { Livro } from './global/types';
-import BooksContext from './contexts/BooksContext';
+import BooksContext, { BooksStateType } from './contexts/BooksContext';
 import BookGrid from './components/BookGrid';
 
 function App() {
@@ -13,8 +13,10 @@ function App() {
     show: false,
   });
 
-  const [booksState, setBooksState] = useState<{ books: Livro[] }>({
+  const [booksState, setBooksState] = useState<BooksStateType>({
     books: [],
+    shownBooks: [],
+    guia: 'todos',
   });
 
   return (
