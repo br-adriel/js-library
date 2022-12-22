@@ -30,6 +30,17 @@ const BookCardActions: React.FC<IProps> = ({ book }) => {
     });
   };
 
+  const marcarLido = () => {
+    setBooksState((prev) => {
+      return {
+        books: prev.books.map((b) => {
+          if (b.id === book.id) b.foiLido = !b.foiLido;
+          return b;
+        }),
+      };
+    });
+  };
+
   return (
     <CardActions>
       <BtnApagar onClick={apagar} type='button'>
@@ -38,7 +49,7 @@ const BookCardActions: React.FC<IProps> = ({ book }) => {
       <BtnFavorito favorito={book.favorito} onClick={favoritar} type='button'>
         <FaHeart />
       </BtnFavorito>
-      <BtnLido lido={book.foiLido} type='button'>
+      <BtnLido lido={book.foiLido} type='button' onClick={marcarLido}>
         <FaCheck />
       </BtnLido>
     </CardActions>
