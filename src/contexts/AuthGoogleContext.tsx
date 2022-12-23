@@ -1,17 +1,24 @@
-import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
+import {
+  GoogleAuthProvider,
+  User,
+  getAuth,
+  signInWithPopup,
+} from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import { app } from '../services/firebase.config';
 
-type AuthGoogleStateType = object | null;
+type AuthGoogleStateType = User | null;
 
 type AuthGoogleProviderType = {
   signInGoogle: Function;
   signed: boolean;
+  user: User | null;
 };
 
 export const AuthGoogleContext = createContext<AuthGoogleProviderType>({
   signInGoogle: () => {},
   signed: false,
+  user: null,
 });
 
 interface IProps {
@@ -54,7 +61,7 @@ export const AuthGoogleProvider: React.FC<IProps> = ({ children }) => {
   };
 
   return (
-    <AuthGoogleContext.Provider value={{ signInGoogle, signed: !!user }}>
+    <AuthGoogleContext.Provider value={{ signInGoogle, signed: !!user, user }}>
       {children}
     </AuthGoogleContext.Provider>
   );
