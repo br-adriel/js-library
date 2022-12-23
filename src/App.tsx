@@ -1,12 +1,12 @@
 import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import Footer from './components/Footer';
 import GlobalStyles from './components/GlobalStyles';
 import Header from './components/Header';
 import ModalAddBook from './components/ModalAddBook';
-import ModalContext from './contexts/ModalContext';
-import { Livro } from './global/types';
 import BooksContext, { BooksStateType } from './contexts/BooksContext';
-import BookGrid from './components/BookGrid';
+import ModalContext from './contexts/ModalContext';
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
   const [modalState, setModalState] = useState<{ show: boolean }>({
@@ -24,10 +24,7 @@ function App() {
       <BooksContext.Provider value={{ booksState, setBooksState }}>
         <ModalContext.Provider value={{ modalState, setModalState }}>
           <GlobalStyles />
-          <Header />
-          <main>
-            <BookGrid />
-          </main>
+          <AppRoutes />
           <Footer />
           <ModalAddBook />
         </ModalContext.Provider>
