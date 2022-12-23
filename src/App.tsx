@@ -6,6 +6,7 @@ import { AuthGoogleProvider } from './contexts/AuthGoogleContext';
 import BooksContext, { BooksStateType } from './contexts/BooksContext';
 import ModalContext from './contexts/ModalContext';
 import AppRoutes from './routes/AppRoutes';
+import Header from './components/Header';
 
 function App() {
   const [modalState, setModalState] = useState<{ show: boolean }>({
@@ -24,7 +25,10 @@ function App() {
         <ModalContext.Provider value={{ modalState, setModalState }}>
           <AuthGoogleProvider>
             <GlobalStyles />
-            <AppRoutes />
+            <Header />
+            <main>
+              <AppRoutes />
+            </main>
             <Footer />
             <ModalAddBook />
           </AuthGoogleProvider>

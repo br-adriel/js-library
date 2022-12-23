@@ -5,10 +5,12 @@ import Filtro from './Filtro';
 import { useContext, useState } from 'react';
 import ModalContext from '../contexts/ModalContext';
 import BooksContext from '../contexts/BooksContext';
+import { AuthGoogleContext } from '../contexts/AuthGoogleContext';
 
 const Header = () => {
   const { setModalState } = useContext(ModalContext);
   const { setBooksState, booksState } = useContext(BooksContext);
+  const { signed } = useContext(AuthGoogleContext);
 
   const mostrarTodos = () => {
     setBooksState((prev) => {
@@ -53,45 +55,50 @@ const Header = () => {
   return (
     <HeaderTag>
       <h1>Biblioteca</h1>
-      <ButtonWrapper>
-        <Filtro>
-          <button
-            type='button'
-            onClick={mostrarTodos}
-            className={booksState.guia === 'todos' ? 'selecionado' : ''}
-          >
-            Todos
-          </button>
-          <button
-            type='button'
-            onClick={mostrarNaoLidos}
-            className={booksState.guia === 'nao-lidos' ? 'selecionado' : ''}
-          >
-            Não lidos
-          </button>
-          <button
-            type='button'
-            onClick={mostrarLidos}
-            className={booksState.guia === 'lidos' ? 'selecionado' : ''}
-          >
-            Lidos
-          </button>
-          <button
-            type='button'
-            onClick={mostrarFavoritos}
-            className={booksState.guia === 'favoritos' ? 'selecionado' : ''}
-          >
-            Favoritos
-          </button>
-        </Filtro>
-        <button
-          type='button'
-          onClick={() => setModalState({ show: true })}
-          title='Adicionar livro'
-        >
-          <FaPlus />
-        </button>
-      </ButtonWrapper>
+
+      {!signed ? null : (
+        <ButtonWrapper>
+          <Filtro>
+            <button
+              type='button'
+              onClick={mostrarTodos}
+              className={booksState.guia === 'todos' ? 'selecionado' : ''}
+            >
+              Todos
+            </button>
+            <button
+              type='button'
+              onClick={mostrarNaoLidos}
+              className={booksState.guia === 'nao-lidos' ? 'selecionado' : ''}
+            >
+              Não lidos
+            </button>
+            <button
+              type='button'
+              onClick={mostrarLidos}
+              className={booksState.guia === 'lidos' ? 'selecionado' : ''}
+            >
+              Lidos
+            </button>
+            <button
+              type='button'
+              onClick={mostrarFavoritos}
+              className={booksState.guia === 'favoritos' ? 'selecionado' : ''}
+            >
+              Favoritos
+            </button>
+          </Filtro>
+          {
+            <button
+              type='button'
+              onClick={() => setModalState({ show: true })}
+              title='Adicionar livro'
+            >
+              <FaPlus />
+            </button>
+          }
+        </ButtonWrapper>
+      )}
     </HeaderTag>
   );
 };
