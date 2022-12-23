@@ -40,6 +40,7 @@ const Content = styled.div`
   gap: 25px;
   background: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
 
   button {
     padding: 15px 20px;
@@ -52,6 +53,8 @@ const Content = styled.div`
 
     :hover {
       background: #1b68f7;
-    }`;
+    }
+  }
+`;
 
 export default Login;
