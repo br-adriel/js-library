@@ -1,8 +1,13 @@
 import BookGrid from '../components/BookGrid';
-import Header from '../components/Header';
+import Profile from '../components/Profile';
 
 const Home = () => {
-  return <BookGrid />;
+  return (
+    <>
+      <Profile />
+      <BookGrid />;
+    </>
+  );
 };
 
 export default Home;
