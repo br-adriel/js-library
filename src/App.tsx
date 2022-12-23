@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
 import Footer from './components/Footer';
 import GlobalStyles from './components/GlobalStyles';
-import Header from './components/Header';
 import ModalAddBook from './components/ModalAddBook';
+import { AuthGoogleProvider } from './contexts/AuthGoogleContext';
 import BooksContext, { BooksStateType } from './contexts/BooksContext';
 import ModalContext from './contexts/ModalContext';
 import AppRoutes from './routes/AppRoutes';
@@ -23,10 +22,12 @@ function App() {
     <>
       <BooksContext.Provider value={{ booksState, setBooksState }}>
         <ModalContext.Provider value={{ modalState, setModalState }}>
-          <GlobalStyles />
-          <AppRoutes />
-          <Footer />
-          <ModalAddBook />
+          <AuthGoogleProvider>
+            <GlobalStyles />
+            <AppRoutes />
+            <Footer />
+            <ModalAddBook />
+          </AuthGoogleProvider>
         </ModalContext.Provider>
       </BooksContext.Provider>
     </>

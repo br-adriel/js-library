@@ -1,7 +1,11 @@
+import { AuthGoogleContext } from '../contexts/AuthGoogleContext';
+import { useContext } from 'react';
+
 const Login = () => {
+  const { signInGoogle } = useContext(AuthGoogleContext);
   return (
     <main>
-      <h1>Login</h1>
+      <button onClick={() => signInGoogle()}>Entrar com google</button>
     </main>
   );
 };
