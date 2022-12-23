@@ -1,5 +1,5 @@
-import { createContext, useState } from 'react';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
+import { createContext, useEffect, useState } from 'react';
 import { app } from '../services/firebase.config';
 
 type AuthGoogleStateType = object | null;
@@ -22,6 +22,16 @@ const provider = new GoogleAuthProvider();
 
 export const AuthGoogleProvider: React.FC<IProps> = ({ children }) => {
   const [user, setUser] = useState<AuthGoogleStateType>(null);
+
+  useEffect(() => {
+    const loadStoreAuth = () => {
+      const sessionToken = sessionStorage.getItem('@AuthFirebase:token');
+      const sessionUser = sessionStorage.getItem('@AuthFirebase:user');
+      if (sessionToken && sessionUser) setUser(JSON.parse(sessionUser));
+    };
+
+    loadStoreAuth();
+  }, []);
 
   const auth = getAuth(app);
 
