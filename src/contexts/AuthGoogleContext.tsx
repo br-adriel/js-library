@@ -3,6 +3,7 @@ import {
   User,
   getAuth,
   signInWithPopup,
+  signOut,
 } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import { app } from '../services/firebase.config';
@@ -11,12 +12,14 @@ type AuthGoogleStateType = User | null;
 
 type AuthGoogleProviderType = {
   signInGoogle: Function;
+  signOutGoogle: Function;
   signed: boolean;
   user: User | null;
 };
 
 export const AuthGoogleContext = createContext<AuthGoogleProviderType>({
   signInGoogle: () => {},
+  signOutGoogle: () => {},
   signed: false,
   user: null,
 });
@@ -60,8 +63,22 @@ export const AuthGoogleProvider: React.FC<IProps> = ({ children }) => {
       });
   };
 
+  const signOutGoogle = () => {
+    signOut(auth)
+      .then(() => {
+        sessionStorage.removeItem('@AuthFirebase:token');
+        sessionStorage.removeItem('@AuthFirebase:user');
+        setUser(null);
+      })
+      .catch((error) => {
+        alert('Um erro ocorreu');
+      });
+  };
+
   return (
-    <AuthGoogleContext.Provider value={{ signInGoogle, signed: !!user, user }}>
+    <AuthGoogleContext.Provider
+      value={{ signInGoogle, signed: !!user, user, signOutGoogle }}
+    >
       {children}
     </AuthGoogleContext.Provider>
   );
