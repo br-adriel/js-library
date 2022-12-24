@@ -57,7 +57,7 @@ export const AuthGoogleProvider: React.FC<IProps> = ({ children }) => {
           sessionStorage.setItem('@AuthFirebase:token', token);
           sessionStorage.setItem('@AuthFirebase:user', JSON.stringify(user));
           const docRef = doc(db, 'biblioteca', user.uid);
-          await setDoc(docRef, { livros: {} }, { merge: true });
+          await setDoc(docRef, { livros: [] }, { merge: true });
         }
       })
       .catch((error) => {
