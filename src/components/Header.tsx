@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import ButtonWrapper from './ButtonWrapper';
+import { useContext } from 'react';
 import { FaPlus } from 'react-icons/fa';
-import Filtro from './Filtro';
-import { useContext, useState } from 'react';
-import ModalContext from '../contexts/ModalContext';
-import BooksContext from '../contexts/BooksContext';
+import styled from 'styled-components';
 import { AuthGoogleContext } from '../contexts/AuthGoogleContext';
+import { BooksContext } from '../contexts/BooksContext';
+import ModalContext from '../contexts/ModalContext';
+import ButtonWrapper from './ButtonWrapper';
+import Filtro from './Filtro';
 
 const Header = () => {
   const { setModalState } = useContext(ModalContext);

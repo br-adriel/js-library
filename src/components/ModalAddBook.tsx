@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import styled from 'styled-components';
-import BooksContext from '../contexts/BooksContext';
+import { BooksContext } from '../contexts/BooksContext';
 import ModalContext from '../contexts/ModalContext';
 import { Livro } from '../global/types';
 

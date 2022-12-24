@@ -3,7 +3,7 @@ import Footer from './components/Footer';
 import GlobalStyles from './components/GlobalStyles';
 import ModalAddBook from './components/ModalAddBook';
 import { AuthGoogleProvider } from './contexts/AuthGoogleContext';
-import BooksContext, { BooksStateType } from './contexts/BooksContext';
+import { BooksContextProvider } from './contexts/BooksContext';
 import ModalContext from './contexts/ModalContext';
 import AppRoutes from './routes/AppRoutes';
 import Header from './components/Header';
@@ -13,15 +13,9 @@ function App() {
     show: false,
   });
 
-  const [booksState, setBooksState] = useState<BooksStateType>({
-    books: [],
-    shownBooks: [],
-    guia: 'todos',
-  });
-
   return (
     <>
-      <BooksContext.Provider value={{ booksState, setBooksState }}>
+      <BooksContextProvider>
         <ModalContext.Provider value={{ modalState, setModalState }}>
           <AuthGoogleProvider>
             <GlobalStyles />
@@ -33,7 +27,7 @@ function App() {
             <ModalAddBook />
           </AuthGoogleProvider>
         </ModalContext.Provider>
-      </BooksContext.Provider>
+      </BooksContextProvider>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { FaCheck, FaHeart, FaTrash } from 'react-icons/fa';
 import styled from 'styled-components';
-import BooksContext from '../contexts/BooksContext';
+import { BooksContext } from '../contexts/BooksContext';
 import { Livro } from '../global/types';
 
 interface IProps {
