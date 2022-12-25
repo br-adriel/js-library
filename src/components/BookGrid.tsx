@@ -1,11 +1,11 @@
+import { collection, getDocs } from 'firebase/firestore';
 import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
-import { BooksContext } from '../contexts/BooksContext';
-import BookCard from './BookCard';
 import { AuthGoogleContext } from '../contexts/AuthGoogleContext';
-import { db } from '../services/firebase.config';
-import { doc, getDoc } from 'firebase/firestore';
+import { BooksContext } from '../contexts/BooksContext';
 import { Livro } from '../global/types';
+import { db } from '../services/firebase.config';
+import BookCard from './BookCard';
 
 const BookGrid = () => {
   const { booksState, setBooksState } = useContext(BooksContext);
@@ -13,21 +13,17 @@ const BookGrid = () => {
   useEffect(() => {
     const inicializarBiblioteca = async () => {
       if (user) {
-        const docRef = doc(db, 'biblioteca', user.uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setBooksState({
-            books: docSnap.data().livros,
-            shownBooks: docSnap.data().livros,
-            guia: 'todos',
-          });
-        } else {
-          setBooksState({
-            books: [],
-            shownBooks: [],
-            guia: 'todos',
-          });
-        }
+        const collectionRef = collection(db, 'biblioteca', user.uid, 'livros');
+        const data = await getDocs(collectionRef);
+        const livros = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        })) as Livro[];
+        setBooksState({
+          books: livros,
+          shownBooks: livros,
+          guia: 'todos',
+        });
       } else {
         setBooksState({
           books: [],

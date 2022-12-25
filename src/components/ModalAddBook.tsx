@@ -1,12 +1,12 @@
+import { addDoc, collection } from 'firebase/firestore';
 import { useContext } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import styled from 'styled-components';
+import { AuthGoogleContext } from '../contexts/AuthGoogleContext';
 import { BooksContext } from '../contexts/BooksContext';
 import ModalContext from '../contexts/ModalContext';
 import { Livro } from '../global/types';
 import { db } from '../services/firebase.config';
-import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
-import { AuthGoogleContext } from '../contexts/AuthGoogleContext';
 
 const ModalAddBook = () => {
   const { modalState, setModalState } = useContext(ModalContext);
@@ -18,7 +18,6 @@ const ModalAddBook = () => {
 
     if (user) {
       const livro: Livro = {
-        id: new Date().toISOString(),
         autor: e.target.autor.value,
         favorito: e.target.favorito.checked,
         foiLido: e.target.foiLido.checked,
@@ -27,8 +26,8 @@ const ModalAddBook = () => {
         titulo: e.target.titulo.value,
       };
 
-      const bibliotecaRef = doc(db, 'biblioteca', user.uid);
-      await updateDoc(bibliotecaRef, { livros: arrayUnion(livro) });
+      const collectionRef = collection(db, 'biblioteca', user.uid, 'livros');
+      await addDoc(collectionRef, livro);
       setBooksState((prev) => {
         return {
           books: [...prev.books, livro],
