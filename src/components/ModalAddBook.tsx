@@ -1,34 +1,43 @@
+import { addDoc, collection } from 'firebase/firestore';
 import { useContext } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import styled from 'styled-components';
-import BooksContext from '../contexts/BooksContext';
+import { AuthGoogleContext } from '../contexts/AuthGoogleContext';
+import { BooksContext } from '../contexts/BooksContext';
 import ModalContext from '../contexts/ModalContext';
 import { Livro } from '../global/types';
+import { db } from '../services/firebase.config';
 
 const ModalAddBook = () => {
   const { modalState, setModalState } = useContext(ModalContext);
   const { setBooksState } = useContext(BooksContext);
+  const { user } = useContext(AuthGoogleContext);
 
-  const formSubmit = (e: any) => {
+  const formSubmit = async (e: any) => {
     e.preventDefault();
-    const livro: Livro = {
-      id: new Date().toISOString(),
-      autor: e.target.autor.value,
-      favorito: e.target.favorito.checked,
-      foiLido: e.target.foiLido.checked,
-      paginas: Number(e.target.paginas.value),
-      publicacao: Number(e.target.anoPublicacao.value),
-      titulo: e.target.titulo.value,
-    };
-    setBooksState((prev) => {
-      return {
-        books: [...prev.books, livro],
-        shownBooks: [...prev.books, livro],
-        guia: 'todos',
+
+    if (user) {
+      const livro: Livro = {
+        autor: e.target.autor.value,
+        favorito: e.target.favorito.checked,
+        foiLido: e.target.foiLido.checked,
+        paginas: Number(e.target.paginas.value),
+        publicacao: Number(e.target.anoPublicacao.value),
+        titulo: e.target.titulo.value,
       };
-    });
-    e.target.reset();
-    setModalState({ show: false });
+
+      const collectionRef = collection(db, 'biblioteca', user.uid, 'livros');
+      await addDoc(collectionRef, livro);
+      setBooksState((prev) => {
+        return {
+          books: [...prev.books, livro],
+          shownBooks: [...prev.books, livro],
+          guia: 'todos',
+        };
+      });
+      e.target.reset();
+      setModalState({ show: false });
+    }
   };
 
   return (

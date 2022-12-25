@@ -1,8 +1,11 @@
 import { useContext } from 'react';
 import { FaCheck, FaHeart, FaTrash } from 'react-icons/fa';
 import styled from 'styled-components';
-import BooksContext from '../contexts/BooksContext';
+import { BooksContext } from '../contexts/BooksContext';
 import { Livro } from '../global/types';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { db } from '../services/firebase.config';
+import { AuthGoogleContext } from '../contexts/AuthGoogleContext';
 
 interface IProps {
   book: Livro;
@@ -10,18 +13,22 @@ interface IProps {
 
 const BookCardActions: React.FC<IProps> = ({ book }) => {
   const { setBooksState } = useContext(BooksContext);
+  const { user } = useContext(AuthGoogleContext);
 
-  const apagar = () => {
-    setBooksState((prev) => {
-      return {
-        ...prev,
-        books: prev.books.filter((b) => b.id !== book.id),
-        shownBooks: prev.shownBooks.filter((b) => b.id !== book.id),
-      };
-    });
+  const apagar = async () => {
+    if (user && book.id) {
+      await deleteDoc(doc(db, 'biblioteca', user.uid, 'livros', book.id));
+      setBooksState((prev) => {
+        return {
+          ...prev,
+          books: prev.books.filter((b) => b.id !== book.id),
+          shownBooks: prev.shownBooks.filter((b) => b.id !== book.id),
+        };
+      });
+    }
   };
 
-  const favoritar = () => {
+  const favoritar = async () => {
     const toggleFavorito = (b: Livro) => {
       if (b.id === book.id)
         return {
@@ -30,16 +37,20 @@ const BookCardActions: React.FC<IProps> = ({ book }) => {
         };
       return b;
     };
-    setBooksState((prev) => {
-      return {
-        ...prev,
-        books: prev.books.map(toggleFavorito),
-        shownBooks: prev.shownBooks.map(toggleFavorito),
-      };
-    });
+    if (user && book.id) {
+      const docRef = doc(db, 'biblioteca', user.uid, 'livros', book.id);
+      await updateDoc(docRef, { favorito: !book.favorito });
+      setBooksState((prev) => {
+        return {
+          ...prev,
+          books: prev.books.map(toggleFavorito),
+          shownBooks: prev.shownBooks.map(toggleFavorito),
+        };
+      });
+    }
   };
 
-  const marcarLido = () => {
+  const marcarLido = async () => {
     const toggleLido = (b: Livro) => {
       if (b.id === book.id)
         return {
@@ -48,13 +59,17 @@ const BookCardActions: React.FC<IProps> = ({ book }) => {
         };
       return b;
     };
-    setBooksState((prev) => {
-      return {
-        ...prev,
-        books: prev.books.map(toggleLido),
-        shownBooks: prev.shownBooks.map(toggleLido),
-      };
-    });
+    if (user && book.id) {
+      const docRef = doc(db, 'biblioteca', user.uid, 'livros', book.id);
+      await updateDoc(docRef, { foiLido: !book.foiLido });
+      setBooksState((prev) => {
+        return {
+          ...prev,
+          books: prev.books.map(toggleLido),
+          shownBooks: prev.shownBooks.map(toggleLido),
+        };
+      });
+    }
   };
 
   return (

@@ -5,8 +5,9 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 import { createContext, useEffect, useState } from 'react';
-import { app } from '../services/firebase.config';
+import { app, db } from '../services/firebase.config';
 
 type AuthGoogleStateType = User | null;
 
@@ -47,13 +48,17 @@ export const AuthGoogleProvider: React.FC<IProps> = ({ children }) => {
 
   const signInGoogle = () => {
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential?.accessToken;
         const user = result.user;
         setUser(user);
-        if (token) sessionStorage.setItem('@AuthFirebase:token', token);
-        sessionStorage.setItem('@AuthFirebase:user', JSON.stringify(user));
+        if (token) {
+          sessionStorage.setItem('@AuthFirebase:token', token);
+          sessionStorage.setItem('@AuthFirebase:user', JSON.stringify(user));
+          const docRef = doc(db, 'biblioteca', user.uid);
+          await setDoc(docRef, {}, { merge: true });
+        }
       })
       .catch((error) => {
         const errorCode = error.code;
