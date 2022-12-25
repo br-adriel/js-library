@@ -47,7 +47,7 @@ const BookCardActions: React.FC<IProps> = ({ book }) => {
     }
   };
 
-  const marcarLido = () => {
+  const marcarLido = async () => {
     const toggleLido = (b: Livro) => {
       if (b.id === book.id)
         return {
@@ -56,13 +56,17 @@ const BookCardActions: React.FC<IProps> = ({ book }) => {
         };
       return b;
     };
-    setBooksState((prev) => {
-      return {
-        ...prev,
-        books: prev.books.map(toggleLido),
-        shownBooks: prev.shownBooks.map(toggleLido),
-      };
-    });
+    if (user && book.id) {
+      const docRef = doc(db, 'biblioteca', user.uid, 'livros', book.id);
+      await updateDoc(docRef, { foiLido: !book.foiLido });
+      setBooksState((prev) => {
+        return {
+          ...prev,
+          books: prev.books.map(toggleLido),
+          shownBooks: prev.shownBooks.map(toggleLido),
+        };
+      });
+    }
   };
 
   return (
