@@ -3,7 +3,7 @@ import { FaCheck, FaHeart, FaTrash } from 'react-icons/fa';
 import styled from 'styled-components';
 import { BooksContext } from '../contexts/BooksContext';
 import { Livro } from '../global/types';
-import { doc, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../services/firebase.config';
 import { AuthGoogleContext } from '../contexts/AuthGoogleContext';
 
@@ -15,14 +15,17 @@ const BookCardActions: React.FC<IProps> = ({ book }) => {
   const { setBooksState } = useContext(BooksContext);
   const { user } = useContext(AuthGoogleContext);
 
-  const apagar = () => {
-    setBooksState((prev) => {
-      return {
-        ...prev,
-        books: prev.books.filter((b) => b.id !== book.id),
-        shownBooks: prev.shownBooks.filter((b) => b.id !== book.id),
-      };
-    });
+  const apagar = async () => {
+    if (user && book.id) {
+      await deleteDoc(doc(db, 'biblioteca', user.uid, 'livros', book.id));
+      setBooksState((prev) => {
+        return {
+          ...prev,
+          books: prev.books.filter((b) => b.id !== book.id),
+          shownBooks: prev.shownBooks.filter((b) => b.id !== book.id),
+        };
+      });
+    }
   };
 
   const favoritar = async () => {
