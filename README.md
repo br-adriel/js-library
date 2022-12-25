@@ -1,6 +1,6 @@
 # Biblioteca 📚
 
-Uma stante virtual para você manter um registro dos livros que já leu ou que deseja ler.
+Uma estante virtual para você manter um registro dos livros que já leu ou que deseja ler.
 
 Esse site foi constuído inicialmente durante uma lição do [The Odin Project](https://www.theodinproject.com/).
 
