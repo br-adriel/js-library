@@ -39,7 +39,7 @@ service cloud.firestore {
 }
 ```
 
-4. Adiciona um app web no seu projeto
+4. Adicione um app web no seu projeto
 
 5. Copie o objeto de configuração dado pelo firebase
 
